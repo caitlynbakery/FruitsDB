@@ -27,35 +27,51 @@ const fruit = new Fruit ({
 
 const personSchema = new mongoose.Schema ({
   name: String,
-  age: Number
+  age: Number,
+  favoriteFruit: fruitSchema
 });
 
 const Person = mongoose.model("Person", personSchema);
 
-const person = new Person ({
-  name: "Wally",
-  age: 2
+const mango = new Fruit({
+  name: "Mango",
+  score: 10,
+  review: "Love Mangos!"
 });
+
+mango.save();
+Person.updateOne({name: "Wally"}, {favoriteFruit: mango}, function(err){
+  if(err){
+    console.log(err);
+  } else{
+    console.log("Added favorite fruit");
+  }
+})
+// const person = new Person ({
+//   name: "Wally",
+//   age: 2
+// });
+
 
 // person.save();
 
-// const kiwi = new Fruit({
-//   name: "Kiwi",
-//   score: 10,
-//   review: "The best fruit!"
-// });
+const kiwi = new Fruit({
+  name: "Kiwi",
+  score: 10,
+  review: "The best fruit!"
+});
 
-// const orange = new Fruit({
-//   name: "Orange",
-//   score: 4,
-//   review: "Too sour for me"
-// });
+const orange = new Fruit({
+  name: "Orange",
+  score: 4,
+  review: "Too sour for me"
+});
 
-// const banana = new Fruit({
-//   name: "Banana",
-//   score: 9,
-//   review: "Love this fruit!"
-// });
+const banana = new Fruit({
+  name: "Banana",
+  score: 9,
+  review: "Love this fruit!"
+});
 
 // // Fruit.insertMany([kiwi, orange, banana], function(err){
 // //   if(err){
@@ -64,6 +80,7 @@ const person = new Person ({
 // //     console.log("Successfully saved all fruits to fruitsDB");
 // //   }
 // // });
+
 
 Fruit.find(function(err, fruits){
   if (err){
@@ -78,22 +95,26 @@ Fruit.find(function(err, fruits){
   }
 });
 
-Fruit.updateOne({_id: "5dfce28340d14b08fcc04949"}, {name: "Peach"}, function(err){
-  if(err){
-    console.log(err);
-  } else {
-    console.log("Successfully updated the document!")
-  }
-})
+// Fruit.updateOne({_id: "5dfce28340d14b08fcc04949"}, {name: "Peach"}, function(err){
+//   if(err){
+//     console.log(err);
+//   } else {
+//     console.log("Successfully updated the document!")
+//   }
+// })
 
-  // const findDocuments = function(db, callback) {
-  //   // Get the documents collection
-  //   const collection = db.collection('fruits');
-  //   // Find some documents
-  //   collection.find({}).toArray(function(err, fruits) {
-  //     assert.equal(err, null);
-  //     console.log("Found the following records");
-  //     console.log(fruits)
-  //     callback(fruits);
-  //   });
-  // }
+// Fruit.deleteOne({name: "Peach"}, function(err){
+//   if(err){
+//     console.log(err);
+//   } else {
+//     console.log("Successfully removed Peach");
+//   }
+// })
+
+// Person.deleteMany({name: "Wally"}, function(err){
+//   if(err){
+//     console.log(err);
+//   } else {
+//     console.log("Removed Wally")
+//   }
+// })
